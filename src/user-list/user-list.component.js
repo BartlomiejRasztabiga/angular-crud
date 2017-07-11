@@ -1,5 +1,5 @@
 angular
-  .module('userList')
+  .module('userList', [])
   .component('userList', {
     templateUrl: 'user-list/user-list.template.html',
     controller: function () {
