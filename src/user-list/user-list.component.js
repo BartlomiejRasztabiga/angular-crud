@@ -2,6 +2,7 @@ angular
   .module('userList')
   .component('userList', {
     templateUrl: 'user-list/user-list.template.html',
+    styleUrl: 'user-list/user-list.component.css',
     controller: function () {
       this.users = [
         {
@@ -28,8 +29,25 @@ angular
         this.newUser = {};
       };
 
-      this.editUser = function (user) {
-        this.editedUser = user;
+      this.startEditingUser = function (user) {
+        this.editedUser = jQuery.extend(true, {}, user);
+      };
+
+      this.editUser = function () {
+        //Find user with id
+        var index = -1;
+        for (var i = 0; i < this.users.length; i++) {
+          if (this.users[i].id === this.editedUser.id) {
+            index = i;
+          }
+        }
+
+        //If found, replace
+        if (index !== -1) {
+          this.users[index] = this.editedUser;
+        }
+
+        this.editedUser = {};
       };
 
       this.deleteUser = function (user) {
