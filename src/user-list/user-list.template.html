@@ -30,17 +30,18 @@
         </tbody>
       </table>
 
-      <!--  Review Form -->
-      <form name="addUserForm" ng-submit="$ctrl.addUser()">
+      <!--  Add user Form -->
+      <form name="addUserForm" ng-submit="addUserForm.$valid && $ctrl.addUser()" novalidate>
 
         <!--  Review Form -->
         <h4>Add user</h4>
         <fieldset class="form-group">
-        <textarea ng-model="$ctrl.newUser.username" class="form-control" placeholder="username..."
-                  title="Username"></textarea>
+          <input ng-model="$ctrl.newUser.username" class="form-control" placeholder="username..."
+                 title="Username" required/>
         </fieldset>
         <fieldset class="form-group">
-          <input ng-model="$ctrl.newUser.password" class="form-control" placeholder="password..." title="Password"/>
+          <input ng-model="$ctrl.newUser.password" class="form-control" placeholder="password..." title="Password"
+                 required/>
         </fieldset>
         <fieldset class="form-group">
           <input type="submit" class="btn btn-primary pull-right" value="Add user"/>
@@ -58,22 +59,24 @@
               <h4 class="modal-title">Edit user</h4>
             </div>
             <div class="modal-body">
-              <form name="editUserForm">
+              <form name="editUserForm" novalidate>
                 <fieldset class="form-group">
                   <label for="username">Username</label>
-                  <textarea ng-model="$ctrl.editedUser.username" class="form-control" title="Username"
-                            id="username"></textarea>
+                  <input ng-model="$ctrl.editedUser.username" class="form-control" title="Username"
+                         id="username" required/>
                 </fieldset>
                 <fieldset class="form-group">
                   <label for="password">Password</label>
-                  <textarea ng-model="$ctrl.editedUser.password" class="form-control" title="Password"
-                            id="password"></textarea>
+                  <input ng-model="$ctrl.editedUser.password" class="form-control" title="Password"
+                         id="password" required/>
                 </fieldset>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Abort</button>
-              <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" ng-click="$ctrl.editUser()">
+              <button type="button" class="btn btn-primary pull-right" data-dismiss="modal"
+                      ng-class="{'disabled': editUserForm.$invalid}" ng-click="$ctrl.editUser()">
+                <!-- Użytkownik nadal może kliknąć edit user, bywa -->
                 Edit user
               </button>
             </div>

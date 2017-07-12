@@ -1,0 +1,10 @@
+.ng-invalid.ng-touched {
+  border-color: lightcoral;
+}
+.ng-valid.ng-touched {
+  border-color: lightgreen;
+}
+
+.no-resize {
+  resize: none;
+}
