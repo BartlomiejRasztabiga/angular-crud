@@ -1,1 +1,1 @@
-angular.module('userList', []);
+angular.module('userList', ['core.users']);

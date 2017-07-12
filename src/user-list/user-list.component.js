@@ -3,28 +3,27 @@ angular
   .component('userList', {
     templateUrl: 'user-list/user-list.template.html',
     styleUrl: 'user-list/user-list.component.css',
-    controller: function () {
-      this.users = [
-        {
-          id: 1,
-          username: 'test',
-          password: 'password'
-        },
-        {
-          id: 2,
-          username: 'test2',
-          password: 'password'
-        }
-      ];
+    controller: function (usersService) {
+      this.users = {};
+      var that = this;
+
+      usersService.getUsers().then(function (response) {
+        console.log(response.data);
+        that.users = JSON.parse(response.data);
+        console.log(that.users);
+      }).catch(function (response) {
+        console.error("response error " + response.status);
+        that.users = {};
+      });
 
       this.newUser = {};
 
       this.editedUser = {};
 
-      this.nextId = 3;
-
       this.addUser = function () {
-        this.newUser.id = this.nextId++;
+        var lastId = this.users[this.users.length - 1].id; //TODO Zamienic zeby szukalo ostatniego ID
+        this.newUser.id = ++lastId;
+        this.newUser.password = this.makeId();
         this.users.push(this.newUser);
         this.newUser = {};
       };
@@ -56,5 +55,15 @@ angular
           this.users.splice(index, 1);
         }
       };
+
+      this.makeId = function() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 40; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+      }
     }
   });

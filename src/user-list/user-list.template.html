@@ -7,14 +7,18 @@
         <tr>
           <th>Username</th>
           <th>Password</th>
+          <th>Role</th>
+          <th>Created at</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="user in $ctrl.users">
+        <tr ng-repeat="user in $ctrl.users track by $index">
           <th>{{user.username}}</th>
           <th>{{user.password}}</th>
+          <th>{{user.role}}</th>
+          <th>{{user.createdAt | date}}</th>
           <th>
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editUserModal"
                     ng-click="$ctrl.startEditingUser(user)"><span class="glyphicon glyphicon-pencil"
@@ -41,6 +45,18 @@
         </fieldset>
         <fieldset class="form-group">
           <input ng-model="$ctrl.newUser.password" class="form-control" placeholder="password..." title="Password"
+                 required/>
+        </fieldset>
+        <fieldset class="form-group">
+          <select ng-model="$ctrl.newUser.role" class="form-control" title="Role" required>
+            <option value="" disabled selected>Choose user role</option>
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+        </fieldset>
+        <fieldset class="form-group">
+          <input type="date" ng-model="$ctrl.newUser.createdAt" class="form-control" placeholder="created at..."
+                 title="Created at"
                  required/>
         </fieldset>
         <fieldset class="form-group">
