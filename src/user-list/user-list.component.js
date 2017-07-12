@@ -16,33 +16,20 @@ angular
         }
       ];
 
-      this.user = {};
+      this.newUser = {};
 
-      this.editing = false;
+      this.editedUser = {};
 
       this.nextId = 3;
 
-      this.elementContent = 'add';
-
       this.addUser = function () {
-        if (this.editing) {
-          var index = this.users.indexOf(this.user);
-          if (index !== -1) {
-            this.users[index] = this.user;
-            this.editing = false;
-          }
-        } else {
-          this.user.id = this.nextId++;
-          this.users.push(this.user);
-        }
-        this.elementContent = 'add';
-        this.user = {};
+        this.newUser.id = this.nextId++;
+        this.users.push(this.newUser);
+        this.newUser = {};
       };
 
       this.editUser = function (user) {
-        this.editing = true;
-        this.elementContent = 'edit';
-        this.user = user;
+        this.editedUser = user;
       };
 
       this.deleteUser = function (user) {
